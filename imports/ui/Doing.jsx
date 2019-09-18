@@ -1,18 +1,29 @@
 import React from 'react';
-import Todos from '../api/todos.js';
+import { withTracker } from 'meteor/react-meteor-data';
+import Dashboard from '../api/dashboard';
 
 
-export default class Doing extends React.Component{
+class Doing extends React.Component{
 
-markAsDone(id){
-    Todos.update(id, {
-        $set: { done: true, }
+async markAsDone(ID){
+    const copy = [ ...Dashboard.findOne({_id: this.props.id}).collection ];
+
+    for(let item of copy){
+        if(item._id == ID){
+            item.done = true;
+        }
+    }
+    
+    await Dashboard.update(this.props.id, {
+        $set: {
+            collection: copy,
+        }
     })
-}
 
+}
     render(){
-        const filteredDoing = this.props.todos.filter( todo =>{
-            return todo.doing === true && todo.done === false ? todo : false
+        const filtered_list = this.props.todos.filter( item =>{
+            return item.doing && !item.done ? item : false
         })
         return(
             <div className="list-task-container">
@@ -23,13 +34,17 @@ markAsDone(id){
                 </div>
                 <div className="wrap-task">
                     <ul className="task-list yellow-list">
-                        { filteredDoing.map( todo =>{
-                            return <li key={todo._id}
-                                        onClick={(e)=>{this.markAsDone(todo._id)}}>{todo.text}</li>
-                        })}
+                        {
+                            filtered_list.map( item =>{
+                                return <li key={item._id} onClick={()=>{this.markAsDone(item._id)}}>{item.text}</li>
+                            } )
+                        }
                     </ul>
                 </div>
             </div>
         )
     }
 }
+export default withTracker((props)=>({
+    todos: Dashboard.findOne({_id: props.id }) ? Dashboard.findOne({_id: props.id }).collection : [],
+}))(Doing)

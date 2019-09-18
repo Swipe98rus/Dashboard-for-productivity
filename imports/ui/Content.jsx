@@ -1,25 +1,26 @@
 import React from 'react'
-import { withTracker } from 'meteor/react-meteor-data';
-import Todos from '../api/todos.js'
 
 import ToDos from './ToDos';
 import Doing from './Doing';
 import Done from './Done';
 
 
-class Content extends React.Component{
-    render(){
-        return(
+const Content =  props =>{
+    if( (props.create_userID || props.join_userID) && (props.connect === 'true')){
+        const localStorageID = props.create_userID ? props.create_userID : props.join_userID
+        return (
             <div className="content">
-                <ToDos todos={this.props.todos}/>
-                <Doing todos={this.props.todos}/>
-                <Done todos={this.props.todos}/>
+                <ToDos id = { localStorageID } />
+                <Doing id = { localStorageID } />
+                <Done id = { localStorageID }  /> 
             </div>
         )
+    }else{
+        return <div></div>;
     }
 }
 
-export default withTracker(()=>({
-    todos: Todos.find({}).fetch(),
-}
-))(Content);
+
+
+
+export default Content;

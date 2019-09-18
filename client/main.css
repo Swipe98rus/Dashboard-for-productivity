@@ -28,7 +28,6 @@ html, body {
   height: 150px;
   background: rgba(0,0,0,0.2);
   border-radius: 0 0 16px 16px;
-  overflow: hidden;
 }
 .logo>h1{
   color: white;
@@ -133,6 +132,59 @@ html, body {
   color: white;
 }
 
+.connection-wrap{
+  width: 100%;
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: center;
+  grid-gap: 14px;
+}
+.join-form,
+.create-form{
+  display: grid;
+  text-align: center;
+}
+.join-form>input,
+.create-form>input{
+  background: rgba(255,255,255,0.3);
+  border: none;
+  outline: none;
+  font-size: 14px;
+  width: 200px;
+  padding: 4px 8px;
+  margin-top: 6px;
+
+}
+.join-form>button,
+.create-form>button{
+  background: rgba(0,0,0,0);
+  border: none;
+  outline: none;
+  padding: 4px 10px;
+  font-size: 14px;
+}
+.join-form>button:hover,
+.create-form>button:hover{
+  background: rgba(255, 255, 255, 0.1);
+  color: #4cd137;
+}
+.disconnect{
+  padding: 10px 15px;
+  background: rgba(0,0,0,0);
+  border: none;
+  font-size: 16px;
+  color: #c23616;
+  transition: 0.1s all;
+  outline: none;
+}
+.disconnect:hover{
+  background: #c23616;
+  color: white;
+}
+.show-dashboard-id{
+  margin-top: 10px; 
+  color: silver;
+}
 
 
 

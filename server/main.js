@@ -1,8 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-import Todos from '/imports/api/todos';
+import '../imports/api/dashboard'
 
-function insertLink(title, url) {
-  Todos.insert({ title, url, createdAt: new Date() });
-}
 
 Meteor.startup(() => {});
