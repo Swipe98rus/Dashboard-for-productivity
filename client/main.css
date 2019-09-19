@@ -146,7 +146,7 @@ html, body {
 }
 .join-form>input,
 .create-form>input{
-  background: rgba(255,255,255,0.3);
+  background: rgba(255,255,255,0.5);
   border: none;
   outline: none;
   font-size: 14px;
@@ -163,6 +163,16 @@ html, body {
   padding: 4px 10px;
   font-size: 14px;
 }
+ .join-form>input::-webkit-input-placeholder,
+ .create-form>input::-webkit-input-placeholder{
+  color: #505053;
+ }
+
+ .join-form>input::-moz-placeholder,
+ .create-form>input::-moz-placeholder {
+   color: #505053;
+ }
+
 .join-form>button:hover,
 .create-form>button:hover{
   background: rgba(255, 255, 255, 0.1);
@@ -183,7 +193,20 @@ html, body {
 }
 .show-dashboard-id{
   margin-top: 10px; 
-  color: silver;
+  color: #E6CF39;
+}
+.wrap-error-message{
+  transition: 3.5s all;
+  opacity: 1;
+}
+.error-message{
+  margin: 30px;
+  background: rgba(255,118,117, 0.5);
+  padding: 10px 15px;
+  cursor: default;
+}
+.error-active{
+  opacity: 0;
 }
 
 
@@ -204,5 +227,16 @@ html, body {
   }
   .list-task-container{
     margin-bottom: 25px;
+  }
+  .connection-wrap{
+    grid-gap: 1px;
+  }
+  .join-form>input,
+  .create-form>input{
+    width: 175px;
+    padding: 4px 3px;
+  }
+  .show-dashboard-id{
+    font-size: 16px;
   }
 }

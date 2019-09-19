@@ -4,16 +4,15 @@ import Dashboard from '../api/dashboard';
 
 
 class Doing extends React.Component{
-
 async markAsDone(ID){
     const copy = [ ...Dashboard.findOne({_id: this.props.id}).collection ];
-
+//Mark our object/todo as DONE
     for(let item of copy){
         if(item._id == ID){
             item.done = true;
         }
     }
-    
+//Update dashboard
     await Dashboard.update(this.props.id, {
         $set: {
             collection: copy,
@@ -22,6 +21,7 @@ async markAsDone(ID){
 
 }
     render(){
+        //Filtered dashboard
         const filtered_list = this.props.todos.filter( item =>{
             return item.doing && !item.done ? item : false
         })
@@ -36,8 +36,9 @@ async markAsDone(ID){
                     <ul className="task-list yellow-list">
                         {
                             filtered_list.map( item =>{
-                                return <li key={item._id} onClick={()=>{this.markAsDone(item._id)}}>{item.text}</li>
-                            } )
+                                return <li key={item._id} 
+                                           onClick={()=>{this.markAsDone(item._id)}}>{item.text}</li>
+                            })
                         }
                     </ul>
                 </div>
@@ -45,6 +46,6 @@ async markAsDone(ID){
         )
     }
 }
-export default withTracker((props)=>({
+export default withTracker( props =>({
     todos: Dashboard.findOne({_id: props.id }) ? Dashboard.findOne({_id: props.id }).collection : [],
 }))(Doing)

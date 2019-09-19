@@ -15,6 +15,13 @@ const Content =  props =>{
                 <Done id = { localStorageID }  /> 
             </div>
         )
+    }else if(props.error){
+        return(
+            <div className="grid-center wrap-error-message" 
+                 ref={props.errorMessageRef}>
+                    <h3 className="error-message">Dashboard not found</h3>
+            </div>
+        )
     }else{
         return <div></div>;
     }

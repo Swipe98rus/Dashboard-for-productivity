@@ -5,24 +5,25 @@ import { withTracker } from 'meteor/react-meteor-data'
 
 class Done extends React.Component{
 render(){
-const filtered_list = this.props.todos.filter( item =>{
-    return item.doing && item.done ? item : false
-})
-
-const removeAllDone = ()=>{
-    let copy = [...this.props.todos];
-//Delete DONE items
-    for(let done of filtered_list){
-        const filteredCopy = copy.filter( item => item._id != done._id );
-        copy = filteredCopy;
-    }
-//Update DB dahsboard
-    Dashboard.update(this.props.id, {
-        $set: {
-            collection: copy,
-        }
+//Filtered dashboard
+    const filtered_list = this.props.todos.filter( item =>{
+        return item.doing && item.done ? item : false
     })
-}
+//Button REMOVE ALL
+    const removeAllDone = ()=>{
+        let copy = [...this.props.todos];
+    //Delete DONE items
+        for(let done of filtered_list){
+            const filteredCopy = copy.filter( item => item._id != done._id );
+            copy = filteredCopy;
+        }
+    //Update DB dahsboard
+        Dashboard.update(this.props.id, {
+            $set: {
+                collection: copy,
+            }
+        })
+    }
 return(
     <div className="list-task-container">
         <div className="wrap-title grid-center green-title">
@@ -30,7 +31,8 @@ return(
                 <h3>Done</h3>
             </div>
             <div>
-                <button className="removeButton" onClick={()=>{removeAllDone()}}>Remove all</button>
+                <button className="removeButton" 
+                        onClick={()=>{removeAllDone()}}>Remove all</button>
             </div>
         </div>
         <div className="wrap-task">
@@ -46,6 +48,6 @@ return(
 )
 }}
 
-export default withTracker( (props)=>({
+export default withTracker( props =>({
     todos: Dashboard.findOne({_id: props.id }) ? Dashboard.findOne({_id: props.id }).collection : [],
 }))(Done);
